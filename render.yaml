@@ -4,7 +4,7 @@ services:
     name: kanban-backend
     env: node
     region: oregon
-    root: backend        # Set root to backend folder
+    root: backend
     plan: free
     buildCommand: npm install
     startCommand: npm start
@@ -13,7 +13,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 4000      # Ensure server listens on this port
+        value: 4000
     autoDeploy: true
 
   # Frontend Static Site
@@ -21,15 +21,12 @@ services:
     name: kanban-frontend
     env: static
     region: oregon
-    root: frontend       # Set root to frontend folder
+    root: frontend
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist   # Vite default output
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_SOCKET_URL
-        fromService:
-          name: kanban-backend
-          type: web
-          property: host   # automatically points to backend host
+        value: https://kanban-backend-jib7.onrender.com  # Changed to your backend URL
     headers:
       - path: /*
         name: X-Forwarded-Proto

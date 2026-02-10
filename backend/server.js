@@ -7,6 +7,8 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
+  'https://kanban-frontend-ally.onrender.com', // Your frontend URL
+  'https://kanban-backend-jib7.onrender.com', // Your backend URL
   process.env.FRONTEND_URL, 
 ];
 
@@ -109,7 +111,7 @@ app.get("/", (req, res) => {
     message: "Kanban Board WebSocket API",
     endpoints: {
       health: "/health",
-      websocket: "ws://" + req.headers.host
+      websocket: "wss://kanban-backend-jib7.onrender.com" // Updated to wss and your URL
     }
   });
 });
