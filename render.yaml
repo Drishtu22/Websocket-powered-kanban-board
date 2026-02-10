@@ -4,7 +4,7 @@ services:
   - type: web
     name: kanban-backend
     env: node
-    region: oregon  # or singapore, frankfurt, ohio
+    region: oregon  # Keep region for backend
     plan: free
     buildCommand: npm install
     startCommand: npm start
@@ -18,7 +18,7 @@ services:
   - type: web
     name: kanban-frontend
     env: static
-    region: oregon
+    # REMOVED: region: oregon  ← Static sites don't need region
     plan: free
     buildCommand: |
       cd frontend
