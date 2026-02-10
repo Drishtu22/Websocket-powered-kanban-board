@@ -4,22 +4,28 @@ services:
   - type: web
     name: kanban-backend
     env: node
-    region: oregon  # Keep region for backend
+    region: oregon
     plan: free
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /health
+    # Add these headers for WebSocket support
+    headers:
+      - path: /*
+        name: X-Forwarded-Proto
+        value: https
     envVars:
       - key: NODE_ENV
         value: production
+      # Add PORT environment variable (REQUIRED for Render)
+      - key: PORT
+        value: 4000  # Matches your server.js PORT 4000
     autoDeploy: true
   
   # Frontend Static Site
   - type: web
     name: kanban-frontend
     env: static
-    # Remove the 'plan: free' line for static sites
-    # plan: free  # ← REMOVE THIS LINE
     buildCommand: |
       cd frontend
       npm install
