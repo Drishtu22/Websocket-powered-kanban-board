@@ -1,39 +1,35 @@
-# render.yaml
 services:
   # Backend WebSocket Service
   - type: web
     name: kanban-backend
     env: node
     region: oregon
+    root: backend        # Set root to backend folder
     plan: free
-    # Direct commands without cd (use correct paths)
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && node server.js
+    buildCommand: npm install
+    startCommand: npm start
     healthCheckPath: /health
-    # REMOVED: headers section (not supported for Node.js services)
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 4000
+        value: 4000      # Ensure server listens on this port
     autoDeploy: true
-  
+
   # Frontend Static Site
   - type: web
     name: kanban-frontend
     env: static
-    buildCommand: |
-      cd frontend
-      npm install
-      npm run build
-    staticPublishPath: ./frontend/dist
+    region: oregon
+    root: frontend       # Set root to frontend folder
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist   # Vite default output
     envVars:
       - key: VITE_SOCKET_URL
         fromService:
           name: kanban-backend
           type: web
-          property: host
-    # Move headers here (they work for static sites)
+          property: host   # automatically points to backend host
     headers:
       - path: /*
         name: X-Forwarded-Proto
