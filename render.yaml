@@ -6,26 +6,19 @@ services:
     env: node
     region: oregon
     plan: free
-    # Set the root directory to the backend folder
-    rootDir: ./backend
-    buildCommand: npm install
-    startCommand: node server.js
+    # COMPLETE SOLUTION: Use direct paths and skip npm commands
+    buildCommand: |
+      cd backend
+      npm ci --production
+    startCommand: node backend/server.js  # Direct path from root
     healthCheckPath: /health
-    # Required for WebSocket support on Render
     headers:
       - path: /*
         name: X-Forwarded-Proto
         value: https
-      - path: /socket.io/
-        name: Upgrade
-        value: $http_upgrade
-      - path: /socket.io/
-        name: Connection
-        value: upgrade
     envVars:
       - key: NODE_ENV
         value: production
-      # Required by Render - matches your server.js default port
       - key: PORT
         value: 4000
     autoDeploy: true
@@ -34,11 +27,11 @@ services:
   - type: web
     name: kanban-frontend
     env: static
-    rootDir: ./frontend
     buildCommand: |
+      cd frontend
       npm install
       npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_SOCKET_URL
         fromService:
