@@ -13,13 +13,13 @@ services:
       - key: NODE_ENV
         value: production
     autoDeploy: true
-
+  
   # Frontend Static Site
   - type: web
     name: kanban-frontend
     env: static
-    # REMOVED: region: oregon  ← Static sites don't need region
-    plan: free
+    # Remove the 'plan: free' line for static sites
+    # plan: free  # ← REMOVE THIS LINE
     buildCommand: |
       cd frontend
       npm install
