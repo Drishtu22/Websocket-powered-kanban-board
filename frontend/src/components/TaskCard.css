@@ -1,0 +1,211 @@
+
+body {
+  background: red !important;
+}
+
+.task-item {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: grab;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.task-item:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.task-item.dragging {
+  opacity: 0.55;
+  transform: scale(0.985);
+}
+
+/* ==============================
+   HEADER
+============================== */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.task-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.25;
+
+  /* Prevent tall cards */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-edit-btn {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  opacity: 0.45;
+  cursor: pointer;
+}
+
+.task-edit-btn:hover {
+  opacity: 1;
+}
+
+.task-edit-input {
+  width: 100%;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+/* ==============================
+   ACTION BUTTONS
+============================== */
+.task-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.task-action-btn {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.task-action-btn:hover {
+  background: #e5e7eb;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+}
+
+/* ==============================
+   TAGS / META
+============================== */
+.task-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.priority-selector,
+.category-selector {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.priority-option,
+.category-option {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.priority-option:hover,
+.category-option:hover {
+  background: #f3f4f6;
+}
+
+.priority-option.selected,
+.category-option.selected {
+  background: #111827;
+  color: white;
+  border-color: #111827;
+}
+
+/* ==============================
+   EXPANDED DETAILS
+============================== */
+.task-details {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ==============================
+   DESCRIPTION
+============================== */
+.description-section {
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.description-text {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #374151;
+  cursor: pointer;
+}
+
+.placeholder-text {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.description-edit {
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 5px 6px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+/* ==============================
+   INFO GRID
+============================== */
+.task-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.priority-badge,
+.category-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 999px;
+  width: fit-content;
+}
