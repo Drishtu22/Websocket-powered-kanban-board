@@ -6,10 +6,10 @@ services:
     env: node
     region: oregon
     plan: free
-    buildCommand: npm install
-    startCommand: npm start
+    # CRITICAL: Tell Render to use the backend folder
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
     healthCheckPath: /health
-    # Add these headers for WebSocket support
     headers:
       - path: /*
         name: X-Forwarded-Proto
@@ -17,9 +17,8 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      # Add PORT environment variable (REQUIRED for Render)
       - key: PORT
-        value: 4000  # Matches your server.js PORT 4000
+        value: 4000
     autoDeploy: true
   
   # Frontend Static Site
