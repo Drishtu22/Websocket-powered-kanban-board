@@ -6,16 +6,11 @@ services:
     env: node
     region: oregon
     plan: free
-    # COMPLETE SOLUTION: Use direct paths and skip npm commands
-    buildCommand: |
-      cd backend
-      npm ci --production
-    startCommand: node backend/server.js  # Direct path from root
+    # Direct commands without cd (use correct paths)
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
     healthCheckPath: /health
-    headers:
-      - path: /*
-        name: X-Forwarded-Proto
-        value: https
+    # REMOVED: headers section (not supported for Node.js services)
     envVars:
       - key: NODE_ENV
         value: production
@@ -38,6 +33,11 @@ services:
           name: kanban-backend
           type: web
           property: host
+    # Move headers here (they work for static sites)
+    headers:
+      - path: /*
+        name: X-Forwarded-Proto
+        value: https
     routes:
       - type: rewrite
         source: /*
